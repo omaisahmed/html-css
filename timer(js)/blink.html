@@ -1,0 +1,26 @@
+<html>
+<head>
+<script language="javascript">
+var a=1
+function abc()
+{
+	if (a==1)
+	{
+		document.getElementById("heading1").style.color="red";
+		a=2;
+	}
+	else
+	{
+		document.getElementById("heading1").style.color="green";
+		a=1;
+	}
+	setTimeout("abc()",100);
+}
+
+</script>
+</head>
+<body onload="abc()">
+<h1 align="center" id=heading1>Pakistan Zindabad</h1>
+
+</body>
+</html>

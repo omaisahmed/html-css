@@ -1,0 +1,25 @@
+<html>
+<head>
+<script language="javascript">
+var a="---------------------------------------------------PAKISTAN";
+c=0;
+var timer;
+function abc()
+{
+b=a.substr(1,a.length)	
+document.getElementById("heading1").innerHTML=b
+a=b
+c=c+1
+timer=setTimeout("abc()",100)
+if (c>=51)
+{
+clearTimeout(timer);	
+}
+}
+</script>
+</head>
+<body onload="abc()">
+<h1 id=heading1></h1>
+
+</body>
+</html>

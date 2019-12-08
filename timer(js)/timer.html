@@ -1,0 +1,68 @@
+<html>
+<head>
+<script language="javascript">
+c=0;
+b=0;
+d=10;
+var timer;
+function abc()
+{
+	var a=document.getElementById("div1");
+		a.style.fontSize=200;
+    if (c==0)
+{
+	a.innerHTML=b;
+	b++;
+}
+    if(d!=10)
+{
+	a.innerHTML=b;
+	
+	clearTimeout(timer);
+	}
+
+	timer=setTimeout("abc()", 1000)	
+}
+
+
+
+//function abc(){
+	
+//	while(c>10)
+//{
+//	var a=document.getElementById("div1");
+//	a.style.fontSize=200;
+//	if (c==0)
+//	{
+//		a.innerHTML=b;
+//		b++;
+//}
+ //timer=setTimeout("abc()", 1000)      
+//}
+//}
+
+
+	
+
+
+	
+	
+
+
+
+
+
+function stoptimer()
+{
+	clearTimeout(timer);
+}
+</script>
+
+</head>
+<body onLoad="abc()">
+<h1 align=center>Counter</h1>
+<hr color=red />
+<div id=div1 align=center><font size=200 face="Arial Black">0</font></div>
+<input type=button value="STOP" onClick="stoptimer()"/>
+</body>
+</html>
