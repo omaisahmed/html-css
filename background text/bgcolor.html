@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	/*body{
+		background-color: red;
+		animation: animate 5s infinite;
+}
+@keyframes animate{
+	from{background-color: red;top: 0px;}
+	to{background-color: yellow;top: 200px;}
+
+}*/
+div{
+	width: 200px;
+	height: 200px;
+	position :relative;
+	background-color: blue;
+	animation: animate 15s infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in;
+	
+}
+div:hover{
+	width: 1000px;
+}
+@keyframes animate{
+	from{left: 0px;}
+	to{left: 1100px;}
+	5%{
+		background-color: red;
+		opacity: 0.5;
+	}
+	30%{
+		background-color: yellow;
+		opacity: 1;
+	}
+	60%{
+		background-color: indigo;
+	}
+	80%{
+		background-color: orange;
+	}
+	100%{
+		background-color: green;
+	}
+
+</style>
+</head>
+<body>
+		<div></div>
+
+
+
+</body>
+</html>
+

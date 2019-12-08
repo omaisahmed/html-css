@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	/*body{
+		background-color: red;
+		animation: animate 5s infinite;
+}
+@keyframes animate{
+	from{background-color: red;top: 0px;}
+	to{background-color: yellow;top: 200px;}
+
+}*/
+.div1{
+	top: 5px;
+	width: 200px;
+	height: 200px;
+	position :relative;
+	animation: animate 5s infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in;
+		
+}
+.div2{
+	top:4px;
+	width: 200px;
+	height: 200px;
+	position :absolute;
+    
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-name: animates;
+	animation-direction: alternate;
+	animation-timing-function: ease-in;
+	z-index: -1;
+
+}
+@keyframes animate{
+	from{left: 0px;}
+	to{left: 1400px;}
+	}
+@keyframes animates{
+	from{left: 0px;}
+	to{left: 1400px;}
+	}
+</style>
+</head>
+<body>
+		<div class="div1"><img src="../background text/background.jpg" width="500" height="400"></div>
+		<div class="div2"><img src="../background text/bg1.jpg" width="500" height="400" style="margin-left: -510px;"></div>
+
+
+
+</body>
+</html>
