@@ -1,0 +1,270 @@
+body {
+    font-family: 'Roboto';
+}
+
+/*
+These are navigation related classes
+*/
+.nav_wrapper{
+    background-color: black;
+}
+.nav_wrapper a{
+    color: white;
+}
+ h1 small{
+    font-size: 0.5em;
+}
+/*
+This is carousal related class to style the wrapper of carousal
+*/
+.carousal-wrapper{
+    background-color: #DDDDDD;
+    -webkit-box-shadow: 0px 5px 2px -2px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 5px 2px -2px rgba(0,0,0,0.75);
+box-shadow: 0px 5px 2px -2px rgba(0,0,0,0.75);
+}
+
+/*
+These are cards classes used in LATEST SECTION to style each dive
+*/
+.cardclass {
+    box-shadow: 3px 3px 5px -1px rgba(0,0,0,0.75);
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .cardclass:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  .circular-arrow{
+      border-radius: 50%;
+      
+  }
+
+
+
+  /*
+This is footer related
+  */
+
+  footer{
+      color: white;
+  }
+
+
+/*
+This is styling for CASES DETAILS PAGE
+
+*/
+
+.jumbo-wrapper p{
+    font-size: 1em;
+}
+
+.pagination li a ,.jumbo-wrapper p.lead a{
+    background-color: #333333;
+    color: #F9D12F;
+}
+
+
+.pagination li a:hover,.jumbo-wrapper p.lead a:hover {
+    background-color: transparent;
+    color: #F9D12F;
+    border: 1px solid #333333;
+}
+
+
+
+
+
+
+
+
+
+/*
+
+*/
+/*
+
+This styling is for admin page 
+
+
+
+*/
+.sidenav-wrapper ul li a:hover{
+    background-color: #171312;
+}
+.sidenav-wrapper  .sidelinkcases{
+    font-size: 0.9em;
+    color: white;
+}
+.sidenav-wrapper  .sidelinksett{
+    font-size: 1.1em;
+    color: white;
+}
+.sidenav-wrapper ul li:first-child a{
+    background-color: #171312;
+    cursor: pointer;
+}
+
+
+
+.edit-form input[type=text]:first-child{
+    font-size: 1.8em;
+}
+
+.edit-form input[type=text]{
+    width: 100%;
+}
+
+/*
+
+*/
+
+  /*
+  This is for mobile styling
+  */
+@media only screen and (max-width: 768px) {
+/*
+Set desktop elements display to none
+*/
+    .carousal-wrapper,.nav_wrapper,.latest-wrapper,.desktop-footer {
+                display: none;
+            }
+
+            /*
+Set mobile elements display to block and style components
+*/
+            
+    .mobile-nav-wrapper{
+        display: block;
+        background-color: black;
+    }
+    .mobile-latest-cases-wrapper, .mobile-footer-wrapper{
+        display: block;
+    }
+
+    .mobile-nav-wrapper img{
+        border-radius: 50%;
+        border: 3px solid white;
+        height: 50px;
+        width: 50px;
+    }
+    .mobile-nav-wrapper h5{
+        color: white;
+    }
+    .mobile-nav-wrapper ul li {
+        width: 50%;
+        
+    }
+    .mobile-nav-wrapper ul li a{
+        background-color: #1F1D1E;
+        color: white;
+        
+    }
+
+    
+    .mobile-nav-wrapper ul li a.active{
+        background-color: #C0B5B9;
+        color: black;
+    }
+    .mobile-nav-wrapper .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: black;
+        background-color: #C0B5B9;
+    }
+    .mobile-footer-wrapper{
+        position: fixed;
+        bottom: 0;
+    }
+    .mobile-footer-wrapper ul li{
+        width: 50%; 
+        text-align: center;
+        background-color: white;
+    }
+    .mobile-footer-wrapper ul li a{
+        background-color: white;
+        color: grey;
+        
+    }   
+    
+    /*
+Search Box styling in bottom sticky nav
+
+
+    */
+    .searchBox {
+          position: absolute;
+          background: white;
+          height: auto;
+          padding: 10px;
+      
+      }
+      
+      .searchBox:hover > .searchInput {
+          width: 100%;
+          padding: 5px;
+      }
+      
+      .searchBox:hover > .searchButton {
+        background: white;
+        color : #2f3640;
+      }
+      
+      .searchButton {
+          color: grey;
+          float: right;
+          border: 0;
+          display: flex;
+        background-color:white;
+        
+          justify-content: center;
+          align-items: center;
+          transition: 0.4s;
+      }
+      
+      .searchInput {
+          border:none;
+          background: none;
+          outline:none;
+          float:left;
+          padding: 0;
+          color: grey;
+          font-size: 16px;
+          transition: 0.4s;
+          line-height: 0px;
+          width: 0px;
+      
+      }
+      
+      
+      .searchBox:hover > .searchInput {
+          width: 150px;
+          padding: 0px;
+      }
+      
+
+
+}
+
+
+
+
+
+
+@media only screen and (min-width: 768px) {
+    /*
+Set desktop elements display to block
+*/
+            .carousal-wrapper,.nav_wrapper,.latest-wrapper,.desktop-footer {
+            display: block;
+        }
+        /*
+Set mobile elements display to none
+*/
+        .mobile-nav-wrapper,.mobile-latest-cases-wrapper, .mobile-footer-wrapper{
+            display: none;
+        }
+        
+    
+}
