@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sign Up</title>
+<style type="text/css">
+div{
+background-color: lavender;
+width: 350px;
+}
+form
+{
+padding-top:15px;
+padding-left:25px;
+padding-right:25px;
+padding-bottom:25px;
+}
+header{
+background-color: indigo;
+color: white;
+padding: 10px;
+
+}
+#tab{
+border-top-right-radius: 5px; 
+border-top: 1px solid black;
+border-right: 1px solid black;
+border-left: 1px solid black;
+background-color:azure;
+width: 230px;
+color: darkblue;
+padding-left: 10px;
+}
+.name{
+margin-bottom: 10px;
+width: 140px;
+}
+.extendedBox{
+margin-bottom: 10px;
+width: 290px;
+}
+#email{
+margin-bottom: 10px;
+width: 282px;
+padding-right: 10px;
+}
+#SU-Button{
+background-color: darkslateblue;
+text-shadow:2px 2px 4px gray;
+text-align: center;
+font-weight: bold;
+padding-top: 5px;
+padding-left: 10px;
+padding-right: 10px;
+padding-bottom: 10px;
+position: relative;
+right:-203px;
+top:10px;
+color: white;
+width: 70px;
+height: 18px;
+}
+input{
+padding-top: 7px;
+padding-bottom: 7px;
+}
+</style>
+</head>
+<body>
+<div id="tab" align="center">
+Omais Ahmed Khan (SampleForm)
+</div>
+<div id="SignUpForm">
+<header>Sign-Up Form</header>
+<form>
+Name<br>
+<input type="text" name="FrstNm"
+placeholder="First" class="name">
+<input type="text" name="LstNm"
+placeholder="Last" class="name"><br>
+Email<br>
+<input type="text" name="Email"
+placeholder="@gmail.com" id="email" class="extendedBox"><br>
+Create a Password<br>
+<input type="password" name="CrtPass" class="extendedBox"><br>
+Confirm your Password<br>
+<input type="password" name="CnfrmPass" class="extendedBox"><br>
+Birthday<br>
+<input type="Date" name="bday" min="1988-12-12" class="extendedBox"><br>
+Gender<br>
+<input type="gender" name="Gender" class="extendedBox" list="gender" placeholder="I am ...">
+<datalist id="gender">
+<option value="Male"></option>
+<option value="Female"></option>
+</datalist>
+Phone Number<br>
+<input type="text" name="Pnumber" class="extendedBox" placeholder="+639"><br>
+Location<br>
+<input type="country" name="location" class="extendedBox" list="country">
+<datalist id="country">
+<option value="Philippines"></option>
+</datalist>
+<br>
+<input type="checkbox" name="chk"> Agree in Terms and Conditions
+<div id="SU-Button">
+Sign up
+</div>
+</form>
+</div>
+</body>
+</html>
