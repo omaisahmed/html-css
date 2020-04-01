@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>JavaScript - read JSON from URL</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="mypanel"></div>
+
+    <script>
+    $.getJSON('https://corona.lmao.ninja/all', function(data) {
+        
+        var text = `Cases: ${data.cases}<br>
+                    Deaths: ${data.deaths}<br>
+                    Recovered: ${data.recovered}<br>
+                    Updated: ${data.updated}`
+                    
+        
+        $(".mypanel").html(text);
+    });
+    </script>
+    
+</body>
+</html>
