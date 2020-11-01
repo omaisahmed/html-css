@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title> Mistari_Radio</title>  
+  <script type='text/javascript' src='jquery.min.js'></script>
+  <script type='text/javascript' src="popcorn-complete.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script type='text/javascript' defer>
+
+// this is the code that needs to be fixed
+// the function wordCallback(t) has nothing to do with code but this is used in original code on this website
+// Check out an implementation of the same on https://www.sunflystreaming.com/
+// You can register for a free account and once you sign in, 
+// you can see how they have implemented it to look exactly like the video
+// you can search for the same song "Let me Love You" by Mario and view how it displays
+
+function wordCallback(t){
+	var tgt = $('#'+t);
+	var wth = parseFloat(tgt.width());
+	//var hgt = parseFloat(tgt.height());
+	var lft = tgt.offset().left
+	var time = (parseFloat(tgt.attr('data-end'))-parseFloat(tgt.attr('data-start')))*1000;
+	if(tgt.hasClass('word')){
+		$('.newword').remove();
+		var htm = '<span style="width:0px;position:fixed; white-space: nowrap;word-break: keep-all;left:'+lft+'px;" id="new'+t+'" class="selected newword">'+tgt.text()+'</span>';
+		tgt.after(htm);
+		$("#new"+t).animate({width:wth+'px'}, time);
+	}
+}
+
+// the code starts from here
+
+Array.prototype.clean = function(deleteValue) {
+	for (var i = 0; i < this.length; i++) {
+		if (this[i] == deleteValue) {         
+			this.splice(i, 1);
+			i--;
+		}
+	}
+	return this;
+};	
+
+
+function getSectionTitle(text) {
+	//Returns PageType in miliseconds.
+	var offset = 0;
+	try {
+		// Pattern matches PageType: Title]
+		var offsetPattern = /\EndTime: .*/g,
+		
+		
+		// Get only the first match.
+		offset_line = text.match(offsetPattern)[0],
+		// Get the second part of the offset.
+		offset = offset_line.split(':')[1];
+		//console.log(offset);
+		} catch (err) {
+		//alert("offset error: "+err.message);
+		offset = 0;
+	}
+	return offset;
+}
+function getPageType(text) {
+	//Returns PageType in miliseconds.
+	var offset = 0;
+	try {
+		// Pattern matches PageType: Title]
+		//var offsetPattern = /\PageType: \w\w\w\w\w\w\w/g,
+		var offsetPattern = /\PageType: .*/g,
+		// Get only the first match.
+		offset_line = text.match(offsetPattern)[0],
+		// Get the second part of the offset.
+		offset = offset_line.split(':')[1];
+	} catch (err) {
+		//alert("offset error: "+err.message);
+		offset = 0;
+	}
+	return offset;
+}
+function getStartTime(text) {
+	//Returns PageType in miliseconds.
+	var offset = 0;
+	try {
+		// Pattern matches PageType: Title]
+		var offsetPattern = /\StartTime: .*/g,
+		// Get only the first match.
+		offset_line = text.match(offsetPattern)[0],
+		// Get the second part of the offset.
+		offset = offset_line.split(':')[1];
+		} catch (err) {
+		//alert("offset error: "+err.message);
+		offset = 0;
+	}
+	return offset;
+}
+function getEndTime(text) {
+	//Returns PageType in miliseconds.
+	var offset = 0;
+	try {
+		// Pattern matches PageType: Title]
+		var offsetPattern = /\EndTime: .*/g,
+		// Get only the first match.
+		offset_line = text.match(offsetPattern)[0],
+		// Get the second part of the offset.
+		offset = offset_line.split(':')[1];
+		} catch (err) {
+		//alert("offset error: "+err.message);
+		offset = 0;
+	}
+	return offset;
+}
+function syncLyrics() {
+	//----------------------------------------------//
+	request = new XMLHttpRequest();
+	request.open('GET', 'SF1112304.txt', true);
+	request.responseType = 'text';
+	//fix for the messy code problem for Chinese.  reference: http://xx.time8.org/php/20101218/ajax-xmlhttprequest.html
+	//request['overrideMimeType'] && request.overrideMimeType("text/html;charset=gb2312");
+	request.onload = function() {
+		//console.log("request.response == ", request.response);
+		parseLyric(request.response);
+	};
+	request.onerror = request.onabort = function(e) {
+		console.log('!failed to load the lyric :(');
+	}
+	console.log('loading lyric...');
+	request.send();
+	//----------------------------------------------//
+}
+function parseLyric(text) {
+	var lyric = [];
+	
+	var pattern = /\[\d{1,3}\.\d{1,2}\] (.*)? \[\d{1,3}\.\d{1,2}\]/g;
+	
+	var sections = text.split('\n********************');
+	sections.forEach(function(section, i, a) {
+		if(getPageType(section)) {
+			var sectionObj = section.split('********************');
+			var lyric_lines = [];
+			var lineObj = sectionObj[1].split('>>>>>>>NEW LINE>>>>>>>');
+			
+			lineObj.forEach(function(line, i, a) {
+				var lyric_line = [];
+				var lines = line.split('\n');
+				lines.clean("");
+				lines.forEach(function(word, i, a) {
+					// console.log("pattern.test = ", word, pattern.test(word));
+					var wordObj = word.split(' '), start_str, end_str;
+					if (pattern.test(word) || pattern.test(word)) {
+						start_str = wordObj[0].replace('[','');
+						start_str = start_str.replace(']','');
+						end_str = wordObj[2].replace('[','');
+						end_str = end_str.replace(']','');
+						lyric_line.push({
+							"start": start_str,
+							"end": end_str,
+							"word": wordObj[1],
+						});
+					}
+				});
+				if(lyric_line.length){
+					lyric_lines.push(lyric_line);
+				}
+			});
+			lyric.push({
+				"pageType" : getPageType(section).trim(),
+				"startTime" : getStartTime(section).trim(),
+				"endTime" : getEndTime(section).trim(),
+				"lines": lyric_lines,
+				"section": sectionObj[0].trim()
+			});
+		}
+	});
+	
+	// console.log("lyric = ", JSON.stringify(lyric));
+	//*********************************************//	
+	var wordTimes = {};
+	var paraTimes = {};
+	var ul = document.getElementsByTagName("ul")[0]; // assuming it exists
+	var docfrag = document.createDocumentFragment();
+	var counter = 1;
+	var lineCounter = 1;
+	lyric.forEach(function(v, i, a) {
+		if(v.pageType=='Lyrics') {
+			
+			var div = document.createElement("div");
+			div.id = "para"+lineCounter;
+			div.setAttribute('data-start', v.startTime);
+			div.setAttribute('data-end', v.endTime);
+			div.className = "para";
+			$('#text').append(div);
+			paraTimes["para"+lineCounter] =  { "start": parseFloat(v.startTime), "end": parseFloat(v.endTime) };
+			
+			v.lines.forEach(function(lines, i, a) {
+				var li = document.createElement("li");
+				li.textContent = "";
+				$('ul').append(li);
+				var line_str = "";
+				lines.forEach(function(line, i, a) {
+					line_str += line.word + " ";
+					
+					var id_str = "word"+counter;
+					var span = document.createElement("span");
+					span.textContent = line.word +" ";
+					span.className = "word";
+					span.setAttribute('data-start', line.start);
+					span.id = id_str;
+					$('#para'+lineCounter).append(span);
+					
+					wordTimes[id_str] =  { "start": parseFloat(line.start), "end": parseFloat(line.end) };
+					counter++;
+				});
+				var br = document.createElement("br");
+				$('#para'+lineCounter).append(br);
+			});
+			
+			lineCounter++;
+		} else {
+			var div = document.createElement("div");
+			div.id = "para"+lineCounter;
+			div.setAttribute('data-start', v.startTime);
+			div.setAttribute('data-end', v.endTime);
+			div.className = "para";
+			$('#text').append(div);
+			paraTimes["para"+lineCounter] =  { "start": parseFloat(v.startTime), "end": parseFloat(v.endTime) };
+			
+			var id_str = "word"+counter;
+			var span = document.createElement("span");
+			span.className = "word";
+			span.setAttribute('data-start', v.startTime);
+			span.id = id_str;
+			$('#para'+lineCounter).append(span);
+			
+			var id_str = "word"+counter;
+			var img = document.createElement("img");
+			if(v.pageType=='Title') {
+				img.setAttribute('src', 'title.png');
+			} else if(v.pageType=='Instruction') {
+				img.setAttribute('src', 'instruments.png');
+			}
+			img.setAttribute('width', '100%');
+			span.id = id_str;
+			$('#'+id_str).append(img);
+			
+			counter++;
+			lineCounter++;
+		}
+	});
+	// console.log("wordTimes = ", JSON.stringify(wordTimes));
+	//------------------ Now play sound ------------------//
+	var pop = Popcorn("#greeting");
+	$.each(wordTimes, function(id, time) {
+		pop.footnote({
+			start: time.start,
+			//end: time.end,
+			text: '',
+			target: id,
+			effect: "applyclass",
+			applyclass: "selected"
+		});
+	});
+	
+	$.each(paraTimes, function(id, time) {
+		pop.footnote({
+			start: time.start,
+			end: time.end,
+			text: '',
+			target: id,
+			effect: "applyclass",
+			applyclass: "paraShow"
+		});
+	});
+	
+	pop.play();
+	$('.word').click(function() {
+		var audio = $('#greeting');
+		audio[0].currentTime = parseFloat($(this).data('start'), 10);
+		audio[0].play();
+	});
+}
+	$('#text').html('');
+	syncLyrics();
+
+// the real problem starts here xD
+
+	$(document).ready(function(){
+		
+		setInterval(function(){
+		check_this();
+
+		},500);
+		
+	});
+	var old = $(this);
+	function check_this()
+	{
+		$(".word").each(async function(v,i){
+				
+				var that = $(this);
+				if(that!=old){
+				old = that;
+				if($(that).hasClass("selected") && !$(that).hasClass("completed"))
+					tear_down_internals(that);
+				}
+			});
+	}
+	function tear_down_internals(that)
+	{
+		if($(that).hasClass("completed") || $(that).hasClass("under_progress")) return;
+		$(that).addClass("under_progress voice_0");
+		var chars = $(that.after()).html();
+		var selectedSpan = $(that);
+		var selectedSpanWidth = selectedSpan.width();
+		var selectedSpanText = $(that).text();
+		var time_allowed = 400; // Adjust this to your needs, it's time allowed one word to shape-shift, 400 milliseconds divided by length of characters.
+		var delay = time_allowed / chars.length;
+		var wth = parseFloat(selectedSpan.width());
+		var selectedSpanLeft = selectedSpan[0].offsetLeft;	
+		var time = (parseFloat(selectedSpan.attr('data-end'))-parseFloat(selectedSpan.attr('data-start')))*1000;
+		// time here is null right now, you can check by console.log this needs to be fixed too
+		var newSpan = $("#new"+selectedSpan);
+
+		var i = 0;
+		var inter = setInterval(function(){
+			if(i<=chars.length-1){
+				
+				// so the real problem is here
+				// what we need to do is:
+				// we need to access the width of new created span "in_shape" and
+				// we need to animate the width from 0px to selectedspanwidth
+				// and also we need to animate it within possible time "time" which is null right now
+				// if you need more help to undertand the code you can whatsapp me at +923117612904 Thanks
+				if(selectedSpan.hasClass('word')){
+				$('.newword').remove();
+				var in_shape = '<span style="width:0px;position:fixed;white-space: nowrap;word-break: keep-all;left:'+selectedSpanLeft+'px;overflow: hidden" id="new'+selectedSpan[0].id+'" class="selected newword">'+selectedSpanText+'</span>';
+				$(that).after(in_shape);
+				$(".selected newword").animate({width:selectedSpanWidth+'px'}, time);	
+	}
+
+	i++;
+			}
+			else
+			{
+				$(that).addClass("completed");
+				clearInterval(inter);
+				return true;
+			}
+
+		},delay);
+	}
+
+</script>
+</head>
+<body>
+	<div class="music-player-text">
+		<div class="text-heading">Mistari</div>
+		<div class="text-heading-player">Radio</div>
+	</div>
+<div class="video-player">
+	<div id="text" class="text-format"> </div>
+	  <!--audio id="greeting" src="http://dl.dropbox.com/u/17154625/greeting.ogg" controls></audio-->
+	<audio id="greeting" src="SF1112304 - Madonna Feat. Nicki Minaj and MIA - Give Me All Your Lovin'.mp3" controls autoplay="false"></audio>
+	<!--<input type="button" onclick="syncLyrics()" value="Play with Sync" />-->
+	  	<!--div id="lyrics">
+		<ul>
+		</ul>
+	</div-->
+</div>
+  
+</body>
+</html>

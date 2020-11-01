@@ -1,0 +1,40 @@
+{
+	"status" : "success",
+	"cards" : {
+		"props" : {
+			"backColor" : "red"
+		}, 
+		"cardsData" :[
+			{
+				"text" : "Apple"
+			},
+			{
+				"text" : "Banana"
+			},
+			{
+				"text" : "Cherry"
+			},
+			{
+				"text" : "Clementine"
+			},
+			{
+				"text" : "Date"
+			},
+			{
+				"text" : "Fig"
+			},
+			{
+				"text" : "Grape"
+			},
+			{
+				"text" : "Guava"
+			},
+			{
+				"text" : "Kiwi fruit"
+			},
+			{
+				"text" : "Mango"
+			}
+		]
+	}
+}

@@ -1,0 +1,89 @@
+body{
+	background-color: #2B2D42
+}
+
+.gameContainer{
+	width: 550px;
+    margin: 20px auto;
+	text-align: center;
+}
+
+.gameContainer .difficultHeader{
+	text-align: center;
+	color: rgb(239, 35, 60);
+}
+
+.gameContainer .difficultContainer{
+	width: 200px;
+    display: flex;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.gameContainer .difficultContainer .difficultItem{
+	padding: 5px;
+	color: transparent;
+	cursor: pointer;
+	float: left;
+
+	transition: all 0.2s;
+}
+.gameContainer .difficultContainer .difficultItem:hover{
+	color: rgb(239, 35, 60);
+
+	transition: all 0.2s;
+}
+
+.gameContainer .cardsContainer{
+	width: 100%;
+	display: inline-block;
+	height: 610px;
+}
+
+.gameContainer .card{
+	width: 100px;
+	height: 150px;
+
+	background-color: #8D99AE;
+	color: transparent;
+
+	padding: 2px;
+	margin: 2px;
+	
+	border: 1px solid lightgrey;
+	text-align: center;
+	float: left;
+
+	transition: all 0.5s;
+}
+
+.gameContainer .card:hover{
+	background-color: rgb(213, 216, 222);
+	transition: all 0.5s;
+}
+
+.gameContainer .succeededSelection{
+	color: rgb(239, 35, 60)!important;
+	background-color: transparent!important;
+	transition: all 0.5s;
+}
+
+.gameContainer .scoringContainer .scoreHeader{
+	color: rgb(239, 35, 60);
+	font-size: 37px;
+}
+
+.gameContainer .playAgainBtn{
+	margin-top: 10px;
+	color: rgb(239, 35, 60);
+	border: 2px solid rgb(239, 35, 60);
+    border-radius: 10px;
+    width: 100px;
+    margin: auto;
+    padding: 5px;
+}
+
+.gameContainer .playAgainBtn:hover{
+	cursor: pointer;
+}
